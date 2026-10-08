@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>AllPick | 김상우 포트폴리오</title>
+  <meta name="description" content="AllPick 쇼핑몰 — 회원·판매자·관리자 흐름과 상품·주문·결제·AI 추천을 구현한 팀 프로젝트. AWS 배포와 AI 추천(FastAPI) 담당."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="AllPick | 김상우 포트폴리오"/>
+  <meta property="og:description" content="AllPick 쇼핑몰 — 회원·판매자·관리자 흐름과 상품·주문·결제·AI 추천을 구현한 팀 프로젝트. AWS 배포와 AI 추천(FastAPI) 담당."/>
+  <meta property="og:image" content="assets/allpick-main-home.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="AllPick | 김상우 포트폴리오"/>
+  <meta name="twitter:description" content="AllPick 쇼핑몰 — 회원·판매자·관리자 흐름과 상품·주문·결제·AI 추천을 구현한 팀 프로젝트. AWS 배포와 AI 추천(FastAPI) 담당."/>
+  <meta name="twitter:image" content="assets/allpick-main-home.png"/>
+  <link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+  <link href="assets/scroll-effects.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: "Noto Sans KR", sans-serif; color: #171717; background: #fafafa; word-break: keep-all; overflow-wrap: break-word; }
+  .display { font-family: "Hanken Grotesk", "Noto Sans KR", sans-serif; letter-spacing: 0; }
+  .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 450, "GRAD" 0, "opsz" 24; }
+  .project-shot { aspect-ratio: 16 / 10; width: 100%; object-fit: cover; }
+  .proof-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75rem; background: #fafafa; padding: 0.75rem; }
+  .proof-thumb {
+    width: 100%;
+    height: 13rem;
+    object-fit: contain;
+    object-position: center top;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.375rem;
+    background: #fff;
+  }
+  .proof-grid--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (max-width: 640px) {
+    .proof-grid { grid-template-columns: 1fr; }
+    .proof-grid--two { grid-template-columns: 1fr; }
+    .proof-thumb { height: 12.5rem; }
+  }
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-50 border-b border-neutral-200 bg-white/90 backdrop-blur">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+    <a class="display text-lg font-extrabold text-neutral-950" href="index.html">김상우</a>
+    <nav class="hidden items-center gap-7 md:flex">
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="index.html">홈</a>
+      <details class="relative">
+        <summary class="flex list-none cursor-pointer items-center gap-1 text-sm font-bold text-blue-700">프로젝트<span class="material-symbols-outlined text-base" aria-hidden="true">expand_more</span></summary>
+        <div class="absolute left-0 z-10 mt-2 w-40 rounded-lg border border-neutral-200 bg-white p-2 shadow-lg">
+          <a class="block rounded px-3 py-2 text-sm font-bold text-blue-700" href="mini-project.html">AllPick</a>
+          <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="final-project.html">TFT-gogo</a>
+          <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="lojipsa-project.html">Lojipsa</a>
+        </div>
+      </details>
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="troubleshooting.html">트러블슛팅</a>
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="performance.html">성능개선</a>
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="ai-usage.html">AI 활용</a>
+    </nav>
+    <details class="relative md:hidden">
+      <summary class="list-none p-2 text-neutral-900"><span class="material-symbols-outlined">menu</span></summary>
+      <nav class="absolute right-0 mt-2 w-48 rounded-lg border border-neutral-200 bg-white p-2 shadow-lg">
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="index.html">홈</a>
+        <p class="px-3 pt-2 text-xs font-bold uppercase text-neutral-400">프로젝트</p>
+        <a class="block rounded px-3 py-2 pl-5 text-sm font-bold text-blue-700" href="mini-project.html">AllPick</a>
+        <a class="block rounded px-3 py-2 pl-5 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="final-project.html">TFT-gogo</a>
+        <a class="block rounded px-3 py-2 pl-5 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="lojipsa-project.html">Lojipsa</a>
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="troubleshooting.html">트러블슛팅</a>
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="performance.html">성능개선</a>
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="ai-usage.html">AI 활용</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main>
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-[1.05fr_0.95fr] md:items-center">
+      <div>
+        <p class="text-sm font-bold uppercase text-blue-700">All Pick</p>
+        <h1 class="display mt-3 text-4xl font-extrabold leading-tight text-neutral-950 md:text-6xl">All Pick</h1>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-neutral-700">역할별 권한과 구매 흐름을 갖춘 쇼핑몰 서비스</p>
+        <p class="mt-4 max-w-3xl text-base leading-7 text-neutral-600">팀장으로 인증/권한, 주문·결제, AI 추천, AWS 배포를 담당했습니다.</p>
+        <div class="mt-8 flex flex-wrap gap-2">
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">Java</span>
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">React</span>
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">Spring Boot</span>
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">MySQL</span>
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">FastAPI</span>
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">AWS S3 · CloudFront</span>
+        </div>
+      </div>
+      <figure class="overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100">
+        <img class="project-shot" src="assets/allpick-main-home.png" alt="AllPick 쇼핑몰 메인 홈페이지 화면" width="1050" height="808"/>
+        <figcaption class="border-t border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-neutral-600">AllPick 쇼핑몰 메인 화면</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-white reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">AI 활용 기록</p>
+      <h2 class="display mt-2 text-3xl font-extrabold text-neutral-950">이 프로젝트의 AI는 기능 안에 있었습니다</h2>
+      <p class="mt-4 max-w-3xl text-sm leading-7 text-neutral-700">AllPick은 Claude Code 같은 AI 코딩 도구를 개발 루프에 쓰기 이전 시기의 프로젝트입니다. PR 본문은 대부분 비어 있고 CodeRabbit 같은 AI 리뷰도 붙어 있지 않아서, 이 시기의 "AI 활용"은 개발 과정이 아니라 제품 기능 자체에 있었습니다.</p>
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        <article class="rounded-lg border border-neutral-200 bg-neutral-50 p-5">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">제품 기능으로서의 AI</p>
+          <strong class="mt-2 block text-xl font-extrabold text-neutral-950">FastAPI + OpenAI API 추천 서버</strong>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">관심 카테고리와 위시리스트를 바탕으로 FastAPI 추천 서버와 OpenAI API를 연동해, 사용자별 맞춤 상품을 추천하는 기능을 단독으로 설계·구현했습니다.</p>
+        </article>
+        <article class="rounded-lg border border-neutral-200 bg-neutral-50 p-5">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">그 이후의 변화</p>
+          <strong class="mt-2 block text-xl font-extrabold text-neutral-950">개발 과정 자체에 AI를 결합</strong>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">이후 TFT-gogo부터는 Claude Code와 AI 코드 리뷰를 개발 루프 안에서 쓰기 시작했고, Lojipsa에서는 배포 후 AI가 스스로 결과를 채점하는 LLM-as-judge까지 도입했습니다.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-neutral-50 reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-16">
+      <div class="grid gap-4 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+      <div>
+        <p class="text-sm font-bold text-blue-700">Repository</p>
+        <div class="mt-2 flex flex-wrap items-center gap-3">
+          <h2 class="display text-3xl font-extrabold text-neutral-950">GitHub 저장소</h2>
+          <span class="inline-flex rounded bg-white px-2.5 py-1 text-xs font-bold uppercase text-blue-700 ring-1 ring-neutral-200">Multi Repo</span>
+        </div>
+      </div>
+      </div>
+      <div class="mt-6 grid gap-3 md:grid-cols-3">
+        <a class="flex min-h-36 flex-col justify-between rounded-lg border border-neutral-200 bg-white p-4 transition hover:border-blue-700 hover:shadow-sm" href="https://github.com/s4ngg/AP-Spring" target="_blank" rel="noreferrer">
+          <div>
+          <p class="font-bold text-neutral-950">AP-Spring</p>
+          <p class="mt-1 text-sm text-neutral-600">Spring Boot API, JWT 인증, 상품·주문·쿠폰·관리자 도메인</p>
+          </div>
+          <span class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue-700">GitHub 바로가기 <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_outward</span></span>
+        </a>
+        <a class="flex min-h-36 flex-col justify-between rounded-lg border border-neutral-200 bg-white p-4 transition hover:border-blue-700 hover:shadow-sm" href="https://github.com/s4ngg/AP-React" target="_blank" rel="noreferrer">
+          <div>
+          <p class="font-bold text-neutral-950">AP-React</p>
+          <p class="mt-1 text-sm text-neutral-600">React 화면, TanStack Query, Zustand, Toss Payments 연동</p>
+          </div>
+          <span class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue-700">GitHub 바로가기 <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_outward</span></span>
+        </a>
+        <a class="flex min-h-36 flex-col justify-between rounded-lg border border-neutral-200 bg-white p-4 transition hover:border-blue-700 hover:shadow-sm" href="https://github.com/s4ngg/AP-FastAPI" target="_blank" rel="noreferrer">
+          <div>
+          <p class="font-bold text-neutral-950">AP-FastAPI</p>
+          <p class="mt-1 text-sm text-neutral-600">OpenAI API 기반 관심 카테고리·위시리스트 상품 추천 서버</p>
+          </div>
+          <span class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue-700">GitHub 바로가기 <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_outward</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-white reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">Design Assets</p>
+      <h2 class="display mt-2 text-3xl font-extrabold text-neutral-950">설계 산출물</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        <figure class="overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100">
+          <img class="project-shot" src="assets/mini-aws-architecture.png" alt="AllPick AWS 아키텍처 다이어그램" width="1099" height="647"/>
+          <figcaption class="border-t border-neutral-200 bg-white p-4">
+            <strong class="text-neutral-950">AWS 아키텍처</strong>
+            <p class="mt-2 text-sm leading-6 text-neutral-600">React 정적 배포, Spring Boot API 서버, MySQL·Redis, S3 이미지 저장소, CloudFront 흐름을 정리합니다.</p>
+          </figcaption>
+        </figure>
+        <figure class="overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100">
+          <img class="project-shot" src="assets/mini-usecase-diagram.png" alt="AllPick 유스케이스 다이어그램" width="3161" height="1563"/>
+          <figcaption class="border-t border-neutral-200 bg-white p-4">
+            <strong class="text-neutral-950">유스케이스 다이어그램</strong>
+            <p class="mt-2 text-sm leading-6 text-neutral-600">일반 회원, 판매자, 관리자 역할별 상품·주문·승인·CS 기능과 접근 범위를 구분합니다.</p>
+          </figcaption>
+        </figure>
+        <figure class="overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100">
+          <img class="project-shot" src="assets/mini-erd.png" alt="AllPick ERD" width="1096" height="723"/>
+          <figcaption class="border-t border-neutral-200 bg-white p-4">
+            <strong class="text-neutral-950">ERD</strong>
+            <p class="mt-2 text-sm leading-6 text-neutral-600">회원, 판매자, 상품, 주문, 쿠폰, 리뷰, 문의·클레임의 관계와 상태 전이를 정리합니다.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-neutral-50 reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">Features</p>
+      <h2 class="display mt-2 text-3xl font-extrabold text-neutral-950">구현 기능</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <article class="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+        <div class="proof-grid">
+          <img class="proof-thumb" src="assets/allpick-originals/auth-signup.png" alt="AllPick 회원가입 입력 검증 화면" width="1020" height="891"/>
+          <img class="proof-thumb" src="assets/allpick-originals/seller-application.png" alt="AllPick 마이페이지 판매자 신청 화면" width="1137" height="646"/>
+          <img class="proof-thumb" src="assets/allpick-originals/admin-seller-list.png" alt="AllPick 관리자 판매자 승인 관리 화면" width="776" height="383"/>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-neutral-950">회원·판매자 인증과 역할 분리</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">회원가입, 판매자 신청, 관리자 승인 흐름을 분리했습니다. 승인 상태에 따라 상품 등록 권한이 달라지도록 처리했습니다.</p>
+        </div>
+      </article>
+      <article class="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+        <div class="proof-grid">
+          <img class="proof-thumb" src="assets/allpick-originals/admin-product-list.png" alt="AllPick 관리자 상품 목록 관리 화면" width="751" height="863"/>
+          <img class="proof-thumb" src="assets/allpick-originals/admin-category-list.png" alt="AllPick 관리자 카테고리 목록 관리 화면" width="1676" height="601"/>
+          <img class="proof-thumb" src="assets/allpick-originals/admin-category-edit.png" alt="AllPick 관리자 카테고리 노출·정렬 수정 화면" width="1676" height="601"/>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-neutral-950">상품·카테고리·승인 관리</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">상품 승인 상태와 카테고리 노출 순서를 관리했습니다. 카테고리 기준으로 상품 목록과 상세 조회가 이어지도록 구성했습니다.</p>
+        </div>
+      </article>
+      <article class="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+        <div class="proof-grid">
+          <img class="proof-thumb" src="assets/allpick-originals/order-checkout.png" alt="AllPick 주문서 작성 화면" width="1033" height="760"/>
+          <img class="proof-thumb" src="assets/allpick-originals/payment-window.png" alt="AllPick Toss Payments 결제창 화면" width="522" height="521"/>
+          <img class="proof-thumb" src="assets/allpick-originals/order-history.png" alt="AllPick 주문 내역 화면" width="1020" height="540"/>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-neutral-950">장바구니·주문·결제 흐름</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">주문서 작성, Toss Payments 결제, 주문 내역 조회까지 구매 흐름을 연결했습니다.</p>
+        </div>
+      </article>
+      <article class="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+        <div class="proof-grid">
+          <img class="proof-thumb" src="assets/allpick-originals/ai-recommendation.png" alt="AllPick 관심 카테고리와 위시리스트 기반 AI 상품 추천 화면" width="1351" height="555"/>
+          <img class="proof-thumb" src="assets/allpick-originals/email-verification.png" alt="AllPick EmailJS 인증 메일 수신 화면" width="478" height="380"/>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-neutral-950">AI 상품 추천과 CS 기능</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">관심 카테고리와 위시리스트를 바탕으로 FastAPI 추천 서버와 OpenAI API를 연동했습니다.</p>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-white reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">Skills</p>
+      <h2 class="display mt-2 text-3xl font-extrabold text-neutral-950">사용 기술</h2>
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        <article class="rounded-xl border border-blue-100 bg-blue-50/60 p-5 shadow-sm">
+          <p class="text-xs font-bold uppercase text-blue-700">Backend</p>
+          <h3 class="mt-2 font-bold text-neutral-950">Spring Boot 기반 쇼핑몰 API</h3>
+          <ul class="mt-4 flex flex-wrap gap-2 text-xs font-bold text-blue-700">
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-blue-100">Java 21</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-blue-100">Spring Boot</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-blue-100">Spring Security</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-blue-100">JPA</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-blue-100">JWT</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-rose-100 bg-rose-50/60 p-5 shadow-sm">
+          <p class="text-xs font-bold uppercase text-rose-700">Database</p>
+          <h3 class="mt-2 font-bold text-neutral-950">회원·상품·주문 데이터 관리</h3>
+          <ul class="mt-4 flex flex-wrap gap-2 text-xs font-bold text-rose-700">
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-rose-100">MySQL</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-rose-100">Redis</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-rose-100">JPA Entity</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-rose-100">Repository</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-cyan-100 bg-cyan-50/60 p-5 shadow-sm">
+          <p class="text-xs font-bold uppercase text-cyan-700">Frontend</p>
+          <h3 class="mt-2 font-bold text-neutral-950">역할별 쇼핑몰 화면 구현</h3>
+          <ul class="mt-4 flex flex-wrap gap-2 text-xs font-bold text-cyan-700">
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-cyan-100">React</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-cyan-100">Vite</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-cyan-100">Axios</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-cyan-100">Zustand</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-cyan-100">TanStack Query</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-cyan-100">CSS Modules</li>
+          </ul>
+        </article>
+        <article class="rounded-xl border border-emerald-100 bg-emerald-50/60 p-5 shadow-sm">
+          <p class="text-xs font-bold uppercase text-emerald-700">Integration & Deploy</p>
+          <h3 class="mt-2 font-bold text-neutral-950">결제·AI 추천·배포 연동</h3>
+          <ul class="mt-4 flex flex-wrap gap-2 text-xs font-bold text-emerald-700">
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-emerald-100">FastAPI</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-emerald-100">OpenAI API</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-emerald-100">Toss Payments</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-emerald-100">EmailJS</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-emerald-100">S3</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-emerald-100">CloudFront</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-emerald-100">EC2</li>
+            <li class="rounded-md bg-white px-2.5 py-1 ring-1 ring-emerald-100">GitHub Actions</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-neutral-50 reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">Verification</p>
+      <h2 class="display mt-2 text-3xl font-extrabold text-neutral-950">기능 구현과 검증 기록</h2>
+      <p class="mt-4 max-w-3xl leading-7 text-neutral-700">AllPick은 화면 기능과 함께 API 응답, 권한, DB 상태를 확인하며 구현했습니다.</p>
+      <div class="mt-10 divide-y divide-neutral-200 border-y border-neutral-200">
+        <article class="grid gap-6 py-8 md:grid-cols-[0.86fr_1.14fr] md:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase text-blue-700">01 / Authentication</p>
+            <h3 class="mt-2 text-xl font-extrabold text-neutral-950">회원·판매자·관리자 인증 기준을 분리했습니다</h3>
+            <p class="mt-3 text-sm leading-6 text-neutral-700">회원, 판매자, 관리자 요청 경로별로 토큰과 권한을 분리했습니다.</p>
+          </div>
+          <figure class="overflow-hidden border border-neutral-200 bg-white">
+            <div class="proof-grid proof-grid--two">
+              <img class="proof-thumb" src="assets/allpick-originals/admin-member-list.png" alt="AllPick 관리자 구매자 계정 관리 화면" width="769" height="557"/>
+              <img class="proof-thumb" src="assets/allpick-originals/admin-seller-list.png" alt="AllPick 관리자 판매자 승인·정지 관리 화면" width="776" height="383"/>
+            </div>
+            <figcaption class="border-t border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-600">역할별 인증과 접근 기준 검증</figcaption>
+          </figure>
+        </article>
+        <article class="grid gap-6 py-8 md:grid-cols-[1.14fr_0.86fr] md:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase text-blue-700">02 / Permission</p>
+            <h3 class="mt-2 text-xl font-extrabold text-neutral-950">승인과 주문 상태가 뒤틀리지 않도록 확인했습니다</h3>
+            <p class="mt-3 text-sm leading-6 text-neutral-700">승인, 주문, 환불 상태가 화면과 DB에서 같은 기준으로 바뀌는지 확인했습니다.</p>
+          </div>
+          <figure class="overflow-hidden border border-neutral-200 bg-white md:order-first">
+            <div class="proof-grid proof-grid--two">
+              <img class="proof-thumb" src="assets/allpick-originals/admin-order-list.png" alt="AllPick 관리자 주문 상태 관리 목록 화면" width="1664" height="628"/>
+              <img class="proof-thumb" src="assets/allpick-originals/admin-order-detail.png" alt="AllPick 관리자 주문 상세와 환불 승인 대기 화면" width="1642" height="238"/>
+            </div>
+            <figcaption class="border-t border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-600">주문 상태와 환불 승인 흐름 검증</figcaption>
+          </figure>
+        </article>
+        <article class="grid gap-6 py-8 md:grid-cols-[0.86fr_1.14fr] md:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase text-blue-700">03 / AI & Integration</p>
+            <h3 class="mt-2 text-xl font-extrabold text-neutral-950">외부 연동 기능은 입력과 실패 응답을 함께 확인했습니다</h3>
+            <p class="mt-3 text-sm leading-6 text-neutral-700">Toss Payments, EmailJS, FastAPI 추천 서버 연동을 요청 흐름과 실패 응답 기준으로 확인했습니다.</p>
+          </div>
+          <figure class="overflow-hidden border border-neutral-200 bg-white">
+            <div class="proof-grid">
+              <img class="proof-thumb" src="assets/allpick-originals/email-verification.png" alt="AllPick EmailJS 인증 메일 수신 화면" width="478" height="380"/>
+              <img class="proof-thumb" src="assets/allpick-originals/payment-window.png" alt="AllPick Toss Payments 결제창 화면" width="522" height="521"/>
+              <img class="proof-thumb" src="assets/allpick-originals/ai-recommendation.png" alt="AllPick FastAPI AI 추천 응답 검증 화면" width="1351" height="555"/>
+            </div>
+            <figcaption class="border-t border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-600">외부 연동과 입력값 검증 기록</figcaption>
+          </figure>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-white border-t border-neutral-200">
+  <div class="mx-auto max-w-6xl px-5 py-8 text-sm text-neutral-500">
+      <div class="flex items-baseline justify-between gap-6">
+        <span class="font-bold text-neutral-900">김상우</span>
+        <a class="font-bold text-neutral-900" href="https://github.com/s4ngg" target="_blank" rel="noreferrer">GitHub 프로필</a>
+      </div>
+      <p class="mt-2">© 2026 백엔드 신입 개발자 포트폴리오. Java, Spring Boot, DB, 배포와 문제 해결.</p>
+  </div>
+</footer>
+<script src="assets/image-modal.js" defer></script>
+<script src="assets/scroll-effects.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>TFT-gogo | 김상우 포트폴리오</title>
+  <meta name="description" content="TFT-gogo 전적 검색 서비스 — Riot API 기반 매치 분석, 메타덱, AI 맞춤 덱 추천을 모노레포로 구현한 팀 프로젝트. AWS 인프라 구축 담당."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="TFT-gogo | 김상우 포트폴리오"/>
+  <meta property="og:description" content="TFT-gogo 전적 검색 서비스 — Riot API 기반 매치 분석, 메타덱, AI 맞춤 덱 추천을 모노레포로 구현한 팀 프로젝트. AWS 인프라 구축 담당."/>
+  <meta property="og:image" content="assets/tft-main-dashboard.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="TFT-gogo | 김상우 포트폴리오"/>
+  <meta name="twitter:description" content="TFT-gogo 전적 검색 서비스 — Riot API 기반 매치 분석, 메타덱, AI 맞춤 덱 추천을 모노레포로 구현한 팀 프로젝트. AWS 인프라 구축 담당."/>
+  <meta name="twitter:image" content="assets/tft-main-dashboard.png"/>
+  <link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+  <link href="assets/scroll-effects.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: "Noto Sans KR", sans-serif; color: #171717; background: #ffffff; word-break: keep-all; overflow-wrap: break-word; }
+  .display { font-family: "Hanken Grotesk", "Noto Sans KR", sans-serif; letter-spacing: 0; }
+  .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 450, "GRAD" 0, "opsz" 24; }
+  .project-shot { aspect-ratio: 16 / 10; width: 100%; object-fit: cover; }
+  .feature-shot { aspect-ratio: 16 / 9; width: 100%; height: 17rem; object-fit: cover; object-position: top; }
+  .feature-card { display: flex; flex-direction: column; }
+  .feature-card > .p-5 { flex: 1; }
+  .feature-combo { height: 17rem; }
+  .proof-grid { display: grid; gap: 0.75rem; background: #fafafa; padding: 0.75rem; }
+  .proof-grid--two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proof-grid--four { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .proof-thumb { width: 100%; height: 15rem; object-fit: cover; object-position: left top; border: 1px solid #e5e5e5; border-radius: 0.375rem; background: #fff; }
+  .proof-grid--four .proof-thumb { height: 11.5rem; }
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-50 border-b border-neutral-200 bg-white/90 backdrop-blur">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+    <a class="display text-lg font-extrabold text-neutral-950" href="index.html">김상우</a>
+    <nav class="hidden items-center gap-7 md:flex">
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="index.html">홈</a>
+      <details class="relative">
+        <summary class="flex list-none cursor-pointer items-center gap-1 text-sm font-bold text-blue-700">프로젝트<span class="material-symbols-outlined text-base" aria-hidden="true">expand_more</span></summary>
+        <div class="absolute left-0 z-10 mt-2 w-40 rounded-lg border border-neutral-200 bg-white p-2 shadow-lg">
+          <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="mini-project.html">AllPick</a>
+          <a class="block rounded px-3 py-2 text-sm font-bold text-blue-700" href="final-project.html">TFT-gogo</a>
+          <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="lojipsa-project.html">Lojipsa</a>
+        </div>
+      </details>
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="troubleshooting.html">트러블슛팅</a>
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="performance.html">성능개선</a>
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="ai-usage.html">AI 활용</a>
+    </nav>
+    <details class="relative md:hidden">
+      <summary class="list-none p-2 text-neutral-900"><span class="material-symbols-outlined">menu</span></summary>
+      <nav class="absolute right-0 mt-2 w-48 rounded-lg border border-neutral-200 bg-white p-2 shadow-lg">
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="index.html">홈</a>
+        <p class="px-3 pt-2 text-xs font-bold uppercase text-neutral-400">프로젝트</p>
+        <a class="block rounded px-3 py-2 pl-5 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="mini-project.html">AllPick</a>
+        <a class="block rounded px-3 py-2 pl-5 text-sm font-bold text-blue-700" href="final-project.html">TFT-gogo</a>
+        <a class="block rounded px-3 py-2 pl-5 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="lojipsa-project.html">Lojipsa</a>
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="troubleshooting.html">트러블슛팅</a>
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="performance.html">성능개선</a>
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="ai-usage.html">AI 활용</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main>
+  <section class="bg-white">
+    <div class="mx-auto grid max-w-6xl gap-10 px-5 py-20 md:grid-cols-[1.05fr_0.95fr] md:items-center">
+      <div>
+        <p class="text-sm font-bold uppercase text-blue-700">롤토체스 전적 검색 서비스</p>
+        <h1 class="display mt-3 text-4xl font-extrabold leading-tight text-neutral-950 md:text-6xl">TFT-gogo 전적 검색 서비스</h1>
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-neutral-700">전략적 팀 전투(TFT) 유저가 소환사 전적을 검색하고 최근 매치, 증강, 덱 구성, 메타덱과 게임 가이드를 확인할 수 있는 서비스입니다. Spring Boot 백엔드, React 프론트엔드, FastAPI AI 서버를 모노레포로 구성하고 Riot API와 OpenAI API 연동 흐름을 함께 다루고 있습니다.</p>
+        <div class="mt-8 flex flex-wrap gap-2">
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">Java</span>
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">Spring Boot</span>
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">React</span>
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">MySQL</span>
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">FastAPI</span>
+          <span class="rounded bg-blue-50 px-3 py-1 text-sm font-bold text-blue-700">Docker</span>
+        </div>
+      </div>
+      <figure class="overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100">
+        <img class="project-shot" src="assets/tft-main-dashboard.png" alt="TFT-gogo 메인 대시보드와 메타 스냅샷 화면" width="1537" height="899"/>
+        <figcaption class="border-t border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-neutral-600">TFT-gogo 전적 검색 화면</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-white reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">AI 활용 기록</p>
+      <h2 class="display mt-2 text-3xl font-extrabold text-neutral-950">AI를 기능이 아니라, 개발과 운영 전체에서 사용했습니다</h2>
+      <p class="mt-4 max-w-3xl text-sm leading-7 text-neutral-700">제가 담당한 merged PR 120개를 본문·커밋·리뷰·댓글까지 확인해 AI 활용과 사람 검증 비중을 퍼센트로 정리했습니다. Lojipsa에서는 배포 후에도 AI가 스스로 자기 출력을 채점하는 피드백 루프를 직접 설계·운영하고 있습니다.</p>
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        <article class="rounded-lg border border-neutral-200 bg-neutral-50 p-5">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">Claude Code Trace</p>
+          <strong class="mt-2 block text-4xl font-extrabold text-neutral-950">96<small class="text-lg">%</small></strong>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">담당 PR 중 본문이나 커밋에 Claude Code 기반 작업 흔적이 남아 있는 비율입니다.</p>
+        </article>
+        <article class="rounded-lg border border-neutral-200 bg-neutral-50 p-5">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">AI Review Linked</p>
+          <strong class="mt-2 block text-4xl font-extrabold text-neutral-950">95<small class="text-lg">%</small></strong>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">담당 PR 중 CodeRabbit 리뷰, 요약, 코멘트가 연결되어 AI 리뷰 루프가 남아 있는 비율입니다.</p>
+        </article>
+        <article class="rounded-lg border border-neutral-200 bg-neutral-50 p-5">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">Human Review Loop</p>
+          <strong class="mt-2 block text-4xl font-extrabold text-neutral-950">79<small class="text-lg">%</small></strong>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">담당 PR 중 AI 리뷰와 별도로 사람 리뷰 또는 팀원 검토가 함께 남아 있는 비율입니다.</p>
+        </article>
+        <article class="rounded-lg border border-neutral-200 bg-neutral-50 p-5">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-neutral-500">Verified Trace</p>
+          <strong class="mt-2 block text-4xl font-extrabold text-neutral-950">93<small class="text-lg">%</small></strong>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">담당 PR 중 테스트, CI, audit, JMeter, 성능 수치처럼 검증 근거가 본문이나 커밋에 남은 비율입니다.</p>
+        </article>
+      </div>
+      <article class="mt-4 rounded-lg border border-violet-200 bg-violet-50/60 p-5 md:flex md:items-center md:gap-8">
+        <div class="md:w-56 md:shrink-0">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-violet-700">Harness Loop</p>
+          <strong class="mt-2 block text-xl font-extrabold text-neutral-950">Claude → Review → 검증</strong>
+        </div>
+        <ul class="mt-3 space-y-2 text-sm leading-6 text-neutral-700 md:mt-0">
+          <li>Claude Code로 구현 초안과 리팩터링 후보를 만들고 PR 단위로 쪼갰습니다.</li>
+          <li>CodeRabbit과 Codex 리뷰를 통해 회귀 위험, 누락된 테스트, 상태 불일치를 다시 점검했습니다.</li>
+          <li>락, timeout, fallback, 인증처럼 운영 안정성에 걸리는 부분은 사람이 최종 판단했습니다.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="bg-neutral-50 reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 pt-16 pb-28">
+      <div class="grid gap-4 md:grid-cols-[0.8fr_1.2fr] md:items-end">
+      <div>
+        <p class="text-sm font-bold text-blue-700">Repository</p>
+        <div class="mt-2 flex flex-wrap items-center gap-3">
+          <h2 class="display text-3xl font-extrabold text-neutral-950">GitHub 저장소</h2>
+          <span class="inline-flex rounded bg-white px-2.5 py-1 text-xs font-bold uppercase text-blue-700 ring-1 ring-neutral-200">Mono Repo</span>
+        </div>
+      </div>
+      </div>
+      <div class="mt-6">
+        <a class="flex flex-col gap-4 rounded-lg border border-neutral-200 bg-white p-4 transition hover:border-blue-700 hover:shadow-sm md:flex-row md:items-center md:justify-between" href="https://github.com/s4ngg/TFT-gogo" target="_blank" rel="noreferrer">
+          <div>
+          <p class="font-bold text-neutral-950">TFT-gogo</p>
+          <p class="mt-1 text-sm text-neutral-600">Spring Boot, React, FastAPI, Docker Compose, Riot API, OpenAI API</p>
+          </div>
+          <span class="inline-flex shrink-0 items-center gap-1 text-sm font-bold text-blue-700">GitHub 바로가기 <span class="material-symbols-outlined text-base" aria-hidden="true">arrow_outward</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-white reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">Design Assets</p>
+      <h2 class="display mt-2 text-3xl font-extrabold text-neutral-950">설계 산출물</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        <figure class="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+          <img class="project-shot" src="assets/tft-aws-architecture.png" alt="TFT-gogo AWS 아키텍처 다이어그램" width="2600" height="1500"/>
+          <figcaption class="border-t border-neutral-200 p-4">
+            <strong class="text-neutral-950">AWS 아키텍처</strong>
+            <p class="mt-2 text-sm leading-6 text-neutral-600">React, Spring Boot, FastAPI, MySQL, Redis, PostgreSQL/pgvector, Riot API, OpenAI API 연결 흐름을 정리합니다.</p>
+          </figcaption>
+        </figure>
+        <figure class="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+          <img class="project-shot" src="assets/tft-usecase-diagram.png" alt="TFT-gogo 유스케이스 다이어그램" width="3600" height="2500"/>
+          <figcaption class="border-t border-neutral-200 p-4">
+            <strong class="text-neutral-950">유스케이스 다이어그램</strong>
+            <p class="mt-2 text-sm leading-6 text-neutral-600">비회원, 로그인 사용자 기준으로 전적 검색, 메타덱 조회, 게임 가이드, AI 추천 흐름을 구분합니다.</p>
+          </figcaption>
+        </figure>
+        <figure class="overflow-hidden rounded-lg border border-neutral-200 bg-white">
+          <img class="project-shot" src="assets/tft-erd-overview.png" alt="TFT-gogo 전체 ERD" width="1755" height="893"/>
+          <figcaption class="border-t border-neutral-200 p-4">
+            <strong class="text-neutral-950">ERD</strong>
+            <p class="mt-2 text-sm leading-6 text-neutral-600">소환사 전적, 매치 상세, 메타덱, 게임 가이드, AI 추천, 회원 정보를 도메인별로 분리해 저장 기준을 잡았습니다. Riot API 데이터를 그대로 화면에 넘기기보다 반복 조회되는 데이터와 추천에 필요한 데이터를 구분해 테이블 관계를 설계했습니다.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-neutral-50 reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">Features</p>
+      <h2 class="display mt-2 text-3xl font-extrabold text-neutral-950">구현 기능</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <article class="feature-card overflow-hidden rounded-lg border border-neutral-200 bg-white">
+        <img class="feature-shot" src="assets/tft-search-detail.png" alt="TFT-gogo 소환사 전적 검색 결과와 최근 매치 목록 화면" width="744" height="902"/>
+        <div class="p-5">
+          <h3 class="font-bold text-neutral-950">소환사 전적 검색과 매치 분석</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">Riot API 기반으로 최근 경기, 순위, 챔피언·아이템 정보를 조회합니다.</p>
+        </div>
+      </article>
+      <article class="feature-card overflow-hidden rounded-lg border border-neutral-200 bg-white">
+        <img class="feature-shot" src="assets/tft-decks-list.png" alt="TFT-gogo 덱모음 메타덱 목록 화면" width="1897" height="908"/>
+        <div class="p-5">
+          <h3 class="font-bold text-neutral-950">메타덱 목록</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">덱 구성, 승률, 평균 등수, 픽률을 한 화면에서 비교할 수 있게 구성했습니다.</p>
+        </div>
+      </article>
+      <article class="feature-card overflow-hidden rounded-lg border border-neutral-200 bg-white">
+        <img class="feature-shot" src="assets/tft-game-guide.png" alt="TFT-gogo 게임 가이드 시너지 정보 화면" width="1045" height="817"/>
+        <div class="p-5">
+          <h3 class="font-bold text-neutral-950">게임 가이드</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">시너지, 아이템, 증강체, 챔피언 정보를 기준 패치에 맞춰 조회합니다.</p>
+        </div>
+      </article>
+      <article class="feature-card overflow-hidden rounded-lg border border-neutral-200 bg-white">
+        <div class="feature-combo grid grid-cols-2 gap-3 bg-slate-950 p-3">
+          <figure class="overflow-hidden rounded-lg border border-cyan-900/60 bg-slate-900">
+            <img class="h-52 w-full object-cover object-top" src="assets/tft-ai-analysis.png" alt="TFT-gogo AI 덱 추천 전적 분석 화면" width="884" height="810"/>
+            <figcaption class="px-3 py-2 text-xs font-bold text-cyan-200">개인 전적 분석</figcaption>
+          </figure>
+          <figure class="overflow-hidden rounded-lg border border-cyan-900/60 bg-slate-900">
+            <img class="h-52 w-full object-cover object-top" src="assets/tft-ai-recommendation.png" alt="TFT-gogo AI 맞춤 덱 추천 결과 화면" width="896" height="678"/>
+            <figcaption class="px-3 py-2 text-xs font-bold text-cyan-200">AI 맞춤 덱 추천</figcaption>
+          </figure>
+        </div>
+        <div class="p-5">
+          <h3 class="font-bold text-neutral-950">AI 맞춤 덱 추천</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-600">최근 전적과 메타 데이터를 바탕으로 맞춤 덱을 추천합니다.</p>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-neutral-200 bg-white reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">Spec & Harness</p>
+      <h2 class="display mt-2 text-3xl font-extrabold text-neutral-950">AI를 쓰기 전에 기준을 먼저 고정했습니다</h2>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <article class="rounded-lg border border-blue-100 bg-blue-50/60 p-5">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-blue-700">01 / Spec</p>
+          <h3 class="mt-2 text-lg font-extrabold text-neutral-950">먼저 스펙을 쪼갰습니다</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-700">기능을 바로 구현하지 않고 요청값, 응답 필드, 실패 응답, DB 상태 변화를 먼저 적었습니다. 이 기준을 Claude에 함께 전달해 AI가 임의로 구조를 바꾸거나 실패 케이스를 빠뜨리지 않게 했습니다.</p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs font-bold text-blue-700">
+            <span class="rounded-md bg-white px-2.5 py-1 ring-1 ring-blue-100">API 계약</span>
+            <span class="rounded-md bg-white px-2.5 py-1 ring-1 ring-blue-100">실패 응답</span>
+            <span class="rounded-md bg-white px-2.5 py-1 ring-1 ring-blue-100">상태 전이</span>
+          </div>
+        </article>
+        <article class="rounded-lg border border-violet-100 bg-violet-50/60 p-5">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-violet-700">02 / Claude</p>
+          <h3 class="mt-2 text-lg font-extrabold text-neutral-950">Claude에는 역할과 제약을 줬습니다</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-700"><code class="rounded bg-white px-1.5 py-0.5 text-xs text-violet-700">/claude</code>로 구현 범위, 수정 금지 영역, 테스트 명령을 함께 넘겼습니다. 단순히 코드를 생성시키는 것이 아니라, 정해진 스펙 안에서만 수정하도록 작업 환경을 만들었습니다.</p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs font-bold text-violet-700">
+            <span class="rounded-md bg-white px-2.5 py-1 ring-1 ring-violet-100">작업 범위</span>
+            <span class="rounded-md bg-white px-2.5 py-1 ring-1 ring-violet-100">수정 제약</span>
+            <span class="rounded-md bg-white px-2.5 py-1 ring-1 ring-violet-100">테스트 명령</span>
+          </div>
+        </article>
+        <article class="rounded-lg border border-cyan-100 bg-cyan-50/60 p-5">
+          <p class="text-xs font-bold uppercase tracking-[0.18em] text-cyan-700">03 / Codex Review</p>
+          <h3 class="mt-2 text-lg font-extrabold text-neutral-950">Codex로 다시 검증했습니다</h3>
+          <p class="mt-3 text-sm leading-6 text-neutral-700">PR에서는 <code class="rounded bg-white px-1.5 py-0.5 text-xs text-cyan-700">@codex</code> 리뷰를 요청해 정상 동작보다 실패 경로, 동시 요청, 누락 테스트를 먼저 확인했습니다. 리뷰 후에는 같은 테스트 명령으로 재검증하고 빌드 성공 여부까지 확인한 뒤 병합했습니다.</p>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs font-bold text-cyan-700">
+            <span class="rounded-md bg-white px-2.5 py-1 ring-1 ring-cyan-100">PR 리뷰</span>
+            <span class="rounded-md bg-white px-2.5 py-1 ring-1 ring-cyan-100">실패 경로</span>
+            <span class="rounded-md bg-white px-2.5 py-1 ring-1 ring-cyan-100">재검증</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-neutral-50 reveal-on-scroll">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">Release Management</p>
+      <h2 class="display mt-2 text-3xl font-extrabold text-neutral-950">팀 협업과 릴리즈 관리</h2>
+      <div class="mt-10 divide-y divide-neutral-200 border-y border-neutral-200">
+        <article class="grid gap-6 py-8 md:grid-cols-[0.86fr_1.14fr] md:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase text-blue-700">01 / Requirement</p>
+            <h3 class="mt-2 text-xl font-extrabold text-neutral-950">기능 범위 정리</h3>
+            <p class="mt-3 text-sm leading-6 text-neutral-700">전적 검색, 메타 분석, AI 추천, 게임 가이드 범위를 문서로 정리했습니다.</p>
+          </div>
+          <figure class="overflow-hidden border border-neutral-200 bg-white">
+            <img class="project-shot" src="assets/tft-requirements-scope.png" alt="TFT-gogo 구현 기능과 핵심 목표 문서 화면" width="603" height="467"/>
+            <figcaption class="border-t border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-600">기능 범위와 핵심 목표 정리</figcaption>
+          </figure>
+        </article>
+        <article class="grid gap-6 py-8 md:grid-cols-[1.14fr_0.86fr] md:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase text-blue-700">02 / Issue & PR</p>
+            <h3 class="mt-2 text-xl font-extrabold text-neutral-950">이슈·PR 관리</h3>
+            <p class="mt-3 text-sm leading-6 text-neutral-700">작업 성격을 라벨로 나누고 PR과 이슈를 연결해 변경 이력을 남겼습니다.</p>
+          </div>
+          <figure class="overflow-hidden border border-neutral-200 bg-white md:order-first">
+            <div class="proof-grid proof-grid--two">
+              <img class="proof-thumb" src="assets/tft-github-issues-labels.png" alt="TFT-gogo GitHub 이슈 라벨 목록 화면" width="1230" height="674"/>
+              <img class="proof-thumb" src="assets/tft-github-pr-closes-issues.png" alt="TFT-gogo PR에서 이슈를 연결해 닫은 화면" width="1232" height="768"/>
+            </div>
+            <figcaption class="border-t border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-600">이슈와 PR 변경 이력</figcaption>
+          </figure>
+        </article>
+        <article class="grid gap-6 py-8 md:grid-cols-[0.86fr_1.14fr] md:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase text-blue-700">03 / API & Integration</p>
+            <h3 class="mt-2 text-xl font-extrabold text-neutral-950">API 연동 범위 정리</h3>
+            <p class="mt-3 text-sm leading-6 text-neutral-700">Riot API, Community Dragon, FastAPI 추천 서버 연동 범위를 나눴습니다.</p>
+          </div>
+          <figure class="overflow-hidden border border-neutral-200 bg-white">
+            <img class="project-shot" src="assets/tft-api-integration-plan.png" alt="TFT-gogo 기능별 필요 API와 외부 연동 문서 화면" width="719" height="486"/>
+            <figcaption class="border-t border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-600">기능별 API와 외부 연동 정리</figcaption>
+          </figure>
+        </article>
+        <article class="grid gap-6 py-8 md:grid-cols-[1.14fr_0.86fr] md:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase text-blue-700">04 / Release</p>
+            <h3 class="mt-2 text-xl font-extrabold text-neutral-950">릴리즈 노트 관리</h3>
+            <p class="mt-3 text-sm leading-6 text-neutral-700">기능 추가, 버그 수정, 성능 개선 내용을 릴리즈 노트로 정리했습니다.</p>
+          </div>
+          <figure class="overflow-hidden border border-neutral-200 bg-white md:order-first">
+            <div class="proof-grid proof-grid--four">
+              <img class="proof-thumb" src="assets/tft-release-list.png" alt="TFT-gogo 릴리즈 목록 화면" width="214" height="246"/>
+              <img class="proof-thumb" src="assets/tft-release-v040-summary.png" alt="TFT-gogo v0.4.0 릴리즈 노트 신규 기능 화면" width="610" height="682"/>
+              <img class="proof-thumb" src="assets/tft-release-v040-quality.png" alt="TFT-gogo v0.4.0 릴리즈 노트 버그 수정과 성능 개선 화면" width="604" height="796"/>
+              <img class="proof-thumb" src="assets/tft-release-v040-retro.png" alt="TFT-gogo v0.4.0 릴리즈 노트 리팩토링과 요약 화면" width="600" height="826"/>
+            </div>
+            <figcaption class="border-t border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-600">릴리즈 노트와 변경 사항 정리</figcaption>
+          </figure>
+        </article>
+        <article class="grid gap-6 py-8 md:grid-cols-[0.86fr_1.14fr] md:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase text-blue-700">05 / Review Harness</p>
+            <h3 class="mt-2 text-xl font-extrabold text-neutral-950">AI 리뷰 검증</h3>
+            <p class="mt-3 text-sm leading-6 text-neutral-700">AI 리뷰로 병합 전 위험을 확인하고 수정 반영 여부를 재검토했습니다.</p>
+          </div>
+          <figure class="overflow-hidden border border-neutral-200 bg-white">
+            <div class="proof-grid proof-grid--two">
+              <img class="proof-thumb" src="assets/tft-ai-review-blocked.png" alt="TFT-gogo AI 코드 리뷰에서 승인 보류와 병합 차단 사유를 정리한 화면" width="900" height="884"/>
+              <img class="proof-thumb" src="assets/tft-ai-review-approved.png" alt="TFT-gogo AI 재리뷰에서 수정 반영 후 승인 가능 상태를 확인한 화면" width="904" height="574"/>
+            </div>
+            <figcaption class="border-t border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-600">AI 리뷰와 재검증 기록</figcaption>
+          </figure>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-white border-t border-neutral-200">
+  <div class="mx-auto max-w-6xl px-5 py-8 text-sm text-neutral-500">
+      <div class="flex items-baseline justify-between gap-6">
+        <span class="font-bold text-neutral-900">김상우</span>
+        <a class="font-bold text-neutral-900" href="https://github.com/s4ngg" target="_blank" rel="noreferrer">GitHub 프로필</a>
+      </div>
+      <p class="mt-2">© 2026 백엔드 신입 개발자 포트폴리오. Java, Spring Boot, DB, 배포와 문제 해결.</p>
+  </div>
+</footer>
+<script src="assets/image-modal.js" defer></script>
+<script src="assets/scroll-effects.js" defer></script>
+</body>
+</html>

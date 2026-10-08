@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>성능개선 | 김상우 포트폴리오</title>
+<meta name="description" content="측정하고 근거로 검증한 성능 개선 기록 — TFT-gogo 매치 집계 480ms에서 5.8ms로 단축 등 수치로 확인한 개선 사례."/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="성능개선 | 김상우 포트폴리오"/>
+<meta property="og:description" content="측정하고 근거로 검증한 성능 개선 기록 — TFT-gogo 매치 집계 480ms에서 5.8ms로 단축 등 수치로 확인한 개선 사례."/>
+<meta property="og:image" content="assets/profile-hero.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="성능개선 | 김상우 포트폴리오"/>
+<meta name="twitter:description" content="측정하고 근거로 검증한 성능 개선 기록 — TFT-gogo 매치 집계 480ms에서 5.8ms로 단축 등 수치로 확인한 개선 사례."/>
+<meta name="twitter:image" content="assets/profile-hero.jpg"/>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="assets/scroll-effects.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: "Noto Sans KR", sans-serif; color: #171717; background: #fafafa; word-break: keep-all; overflow-wrap: break-word; }
+  .display { font-family: "Hanken Grotesk", "Noto Sans KR", sans-serif; letter-spacing: 0; }
+  .material-symbols-outlined { font-variation-settings: "FILL" 0, "wght" 450, "GRAD" 0, "opsz" 24; }
+</style>
+</head>
+<body>
+<header class="sticky top-0 z-50 border-b border-neutral-200 bg-white/90 backdrop-blur">
+  <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+    <a class="display text-lg font-extrabold text-neutral-950" href="index.html">김상우</a>
+    <nav class="hidden items-center gap-7 md:flex">
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="index.html">홈</a>
+      <details class="relative">
+        <summary class="flex list-none cursor-pointer items-center gap-1 text-sm font-semibold text-neutral-600 hover:text-blue-700">프로젝트<span class="material-symbols-outlined text-base" aria-hidden="true">expand_more</span></summary>
+        <div class="absolute left-0 z-10 mt-2 w-40 rounded-lg border border-neutral-200 bg-white p-2 shadow-lg">
+          <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="mini-project.html">AllPick</a>
+          <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="final-project.html">TFT-gogo</a>
+          <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="lojipsa-project.html">Lojipsa</a>
+        </div>
+      </details>
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="troubleshooting.html">트러블슛팅</a>
+      <a class="text-sm font-bold text-blue-700" href="performance.html">성능개선</a>
+      <a class="text-sm font-semibold text-neutral-600 hover:text-blue-700" href="ai-usage.html">AI 활용</a>
+    </nav>
+    <details class="relative md:hidden">
+      <summary class="list-none p-2 text-neutral-900"><span class="material-symbols-outlined">menu</span></summary>
+      <nav class="absolute right-0 mt-2 w-48 rounded-lg border border-neutral-200 bg-white p-2 shadow-lg">
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="index.html">홈</a>
+        <p class="px-3 pt-2 text-xs font-bold uppercase text-neutral-400">프로젝트</p>
+        <a class="block rounded px-3 py-2 pl-5 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="mini-project.html">AllPick</a>
+        <a class="block rounded px-3 py-2 pl-5 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="final-project.html">TFT-gogo</a>
+        <a class="block rounded px-3 py-2 pl-5 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="lojipsa-project.html">Lojipsa</a>
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="troubleshooting.html">트러블슛팅</a>
+        <a class="block rounded px-3 py-2 text-sm font-bold text-blue-700" href="performance.html">성능개선</a>
+        <a class="block rounded px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100" href="ai-usage.html">AI 활용</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<main>
+  <section class="bg-white">
+    <div class="mx-auto max-w-6xl px-5 py-14">
+      <p class="text-sm font-bold text-blue-700">Performance</p>
+      <h1 class="display mt-2 text-4xl font-extrabold text-neutral-950 md:text-5xl">기준을 측정하고 병목을 좁혀가는 과정</h1>
+      <p class="mt-5 max-w-3xl leading-7 text-neutral-700">TFT-gogo와 Lojipsa에서 진행한 성능 개선 기록입니다. JMeter로 개선 전후를 같은 조건에서 반복 측정하고, 원인 분석과 적용한 방법, 측정 환경(TFT-gogo는 로컬, Lojipsa는 운영 서버)을 함께 남겼습니다.</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-12 space-y-4">
+    <details class="group rounded-lg border border-neutral-200 bg-white shadow-sm reveal-on-scroll">
+      <summary class="flex cursor-pointer list-none flex-col gap-3 p-6 md:flex-row md:items-start md:justify-between">
+        <div>
+          <p class="text-xs font-bold uppercase text-blue-700">TFT-gogo</p>
+          <h2 class="display mt-2 text-2xl font-extrabold text-neutral-950">카탈로그 지연 로딩 전환으로 응답속도 87% 개선</h2>
+          <p class="mt-2 text-sm text-neutral-600">avg latency 134ms → 18ms · TPS +639%</p>
+        </div>
+        <div class="flex shrink-0 items-center gap-2">
+          <span class="rounded bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">개선 완료 · PR 병합</span>
+          <span class="material-symbols-outlined text-neutral-400 transition-transform group-open:rotate-180">expand_more</span>
+        </div>
+      </summary>
+
+      <div class="border-t border-neutral-200 px-6 pb-6 pt-5">
+        <div class="grid gap-4 text-sm leading-6 md:grid-cols-3">
+          <div class="rounded-lg border border-rose-100 bg-rose-50/70 p-4">
+            <h3 class="font-bold text-rose-700">원인</h3>
+            <p class="mt-2 text-neutral-700">화면에서 쓰지 않는 전체 카탈로그 데이터를 매번 먼저 불러와 초기 로딩과 응답 크기가 커졌습니다.</p>
+          </div>
+          <div class="rounded-lg border border-blue-100 bg-blue-50/70 p-4">
+            <h3 class="font-bold text-blue-700">해결</h3>
+            <p class="mt-2 text-neutral-700">전체 조회를 제거하고, 화면에 필요한 최소 정보만 먼저 가져오도록 호출 흐름을 바꿨습니다.</p>
+          </div>
+          <div class="rounded-lg border border-amber-100 bg-amber-50/70 p-4">
+            <h3 class="font-bold text-amber-800">추가 판단</h3>
+            <p class="mt-2 text-neutral-700">캐싱으로 가리는 대신, 불필요한 호출 자체를 없애는 방향을 선택했습니다.</p>
+          </div>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-neutral-200">
+          <table class="w-full text-sm">
+            <thead class="bg-neutral-50 text-left text-neutral-600">
+              <tr>
+                <th class="px-4 py-3 font-bold">항목</th>
+                <th class="px-4 py-3 font-bold">개선 전</th>
+                <th class="px-4 py-3 font-bold">개선 후</th>
+                <th class="px-4 py-3 font-bold">변화</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200 text-neutral-700">
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">평균 응답속도</td>
+                <td class="px-4 py-3">134ms</td>
+                <td class="px-4 py-3">18ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-87%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">p95 응답속도</td>
+                <td class="px-4 py-3">247ms</td>
+                <td class="px-4 py-3">24ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-90%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">처리량</td>
+                <td class="px-4 py-3">366.7/s</td>
+                <td class="px-4 py-3">2,711.7/s</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">+639%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <a class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue-700 hover:underline" href="https://github.com/s4ngg/TFT-gogo/issues/647" target="_blank" rel="noreferrer">
+          Issue #647 보기
+          <span class="material-symbols-outlined text-base">arrow_outward</span>
+        </a>
+      </div>
+    </details>
+
+    <details class="group rounded-lg border border-neutral-200 bg-white shadow-sm reveal-on-scroll">
+      <summary class="flex cursor-pointer list-none flex-col gap-3 p-6 md:flex-row md:items-start md:justify-between">
+        <div>
+          <p class="text-xs font-bold uppercase text-blue-700">TFT-gogo</p>
+          <h2 class="display mt-2 text-2xl font-extrabold text-neutral-950">배치 조회와 캐싱 도입으로 N+1 해소, 응답속도 99% 개선</h2>
+          <p class="mt-2 text-sm text-neutral-600">avg latency 480ms → 5.8ms · TPS 103.3/s → 8,465.9/s</p>
+        </div>
+        <div class="flex shrink-0 items-center gap-2">
+          <span class="rounded bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">개선 완료 · PR 병합</span>
+          <span class="material-symbols-outlined text-neutral-400 transition-transform group-open:rotate-180">expand_more</span>
+        </div>
+      </summary>
+
+      <div class="border-t border-neutral-200 px-6 pb-6 pt-5">
+        <div class="grid gap-4 text-sm leading-6 md:grid-cols-3">
+          <div class="rounded-lg border border-rose-100 bg-rose-50/70 p-4">
+            <h3 class="font-bold text-rose-700">원인</h3>
+            <p class="mt-2 text-neutral-700">메타덱 목록을 조회할 때 연관 데이터를 덱마다 따로 불러와 요청당 쿼리가 과도하게 늘어났습니다.</p>
+          </div>
+          <div class="rounded-lg border border-blue-100 bg-blue-50/70 p-4">
+            <h3 class="font-bold text-blue-700">해결</h3>
+            <p class="mt-2 text-neutral-700">연관 데이터를 묶어서 조회하고, 자주 바뀌지 않는 메타덱 응답은 캐싱해 반복 조회 비용을 줄였습니다.</p>
+          </div>
+          <div class="rounded-lg border border-amber-100 bg-amber-50/70 p-4">
+            <h3 class="font-bold text-amber-800">추가 판단</h3>
+            <p class="mt-2 text-neutral-700">데이터 특성상 반복 조회가 많아, 배치 조회에 캐싱까지 함께 적용했습니다.</p>
+          </div>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-neutral-200">
+          <table class="w-full text-sm">
+            <thead class="bg-neutral-50 text-left text-neutral-600">
+              <tr>
+                <th class="px-4 py-3 font-bold">항목</th>
+                <th class="px-4 py-3 font-bold">개선 전</th>
+                <th class="px-4 py-3 font-bold">개선 후</th>
+                <th class="px-4 py-3 font-bold">변화</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200 text-neutral-700">
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">평균 응답속도</td>
+                <td class="px-4 py-3">480ms</td>
+                <td class="px-4 py-3">5.8ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-99%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">처리량</td>
+                <td class="px-4 py-3">103.3/s</td>
+                <td class="px-4 py-3">8,465.9/s</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">약 82배</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">요청당 쿼리</td>
+                <td class="px-4 py-3">123회</td>
+                <td class="px-4 py-3">0회</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">캐시 HIT 기준</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <a class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue-700 hover:underline" href="https://github.com/s4ngg/TFT-gogo/issues/709" target="_blank" rel="noreferrer">
+          Issue #709 보기
+          <span class="material-symbols-outlined text-base">arrow_outward</span>
+        </a>
+      </div>
+    </details>
+
+    <details class="group rounded-lg border border-neutral-200 bg-white shadow-sm reveal-on-scroll">
+      <summary class="flex cursor-pointer list-none flex-col gap-3 p-6 md:flex-row md:items-start md:justify-between">
+        <div>
+          <p class="text-xs font-bold uppercase text-blue-700">TFT-gogo</p>
+          <h2 class="display mt-2 text-2xl font-extrabold text-neutral-950">DB 커넥션 점유 해제로 AI 추천 처리량 20% 개선</h2>
+          <p class="mt-2 text-sm text-neutral-600">avg latency 429ms → 355ms · TPS +20%</p>
+        </div>
+        <div class="flex shrink-0 items-center gap-2">
+          <span class="rounded bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">개선 완료 · PR 병합</span>
+          <span class="material-symbols-outlined text-neutral-400 transition-transform group-open:rotate-180">expand_more</span>
+        </div>
+      </summary>
+
+      <div class="border-t border-neutral-200 px-6 pb-6 pt-5">
+        <div class="grid gap-4 text-sm leading-6 md:grid-cols-3">
+          <div class="rounded-lg border border-rose-100 bg-rose-50/70 p-4">
+            <h3 class="font-bold text-rose-700">원인</h3>
+            <p class="mt-2 text-neutral-700">AI 서버를 호출하는 동안 DB 커넥션을 계속 점유해, 동시 요청이 늘면 커넥션 대기가 발생했습니다.</p>
+          </div>
+          <div class="rounded-lg border border-blue-100 bg-blue-50/70 p-4">
+            <h3 class="font-bold text-blue-700">해결</h3>
+            <p class="mt-2 text-neutral-700">요청 처리 전체가 아니라 필요한 구간에서만 DB 커넥션을 사용하도록 설정을 바꿨습니다.</p>
+          </div>
+          <div class="rounded-lg border border-amber-100 bg-amber-50/70 p-4">
+            <h3 class="font-bold text-amber-800">추가 판단</h3>
+            <p class="mt-2 text-neutral-700">AI 서버 확장도 검토했지만, 비용 제한 로직이 약해질 수 있어 보류했습니다.</p>
+          </div>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-neutral-200">
+          <table class="w-full text-sm">
+            <thead class="bg-neutral-50 text-left text-neutral-600">
+              <tr>
+                <th class="px-4 py-3 font-bold">항목</th>
+                <th class="px-4 py-3 font-bold">개선 전</th>
+                <th class="px-4 py-3 font-bold">개선 후</th>
+                <th class="px-4 py-3 font-bold">변화</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200 text-neutral-700">
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">평균 응답속도</td>
+                <td class="px-4 py-3">429ms</td>
+                <td class="px-4 py-3">355ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-17%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">처리량</td>
+                <td class="px-4 py-3">115.2/s</td>
+                <td class="px-4 py-3">138.7/s</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">+20%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">커넥션 점유</td>
+                <td class="px-4 py-3">외부 호출 중 유지</td>
+                <td class="px-4 py-3">필요 구간만 사용</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">대기 병목 완화</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <a class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue-700 hover:underline" href="https://github.com/s4ngg/TFT-gogo/issues/733" target="_blank" rel="noreferrer">
+          Issue #733 보기
+          <span class="material-symbols-outlined text-base">arrow_outward</span>
+        </a>
+      </div>
+    </details>
+
+    <details class="group rounded-lg border border-neutral-200 bg-white shadow-sm reveal-on-scroll">
+      <summary class="flex cursor-pointer list-none flex-col gap-3 p-6 md:flex-row md:items-start md:justify-between">
+        <div>
+          <p class="text-xs font-bold uppercase text-blue-700">Lojipsa</p>
+          <h2 class="display mt-2 text-2xl font-extrabold text-neutral-950">재료 시세 API 캐시 적용으로 공식 API 호출을 없애 응답속도 91% 개선</h2>
+          <p class="mt-2 text-sm text-neutral-600">avg 207ms → 18ms · p95 529ms → 26ms · 운영 서버 JMeter 실측</p>
+        </div>
+        <div class="flex shrink-0 items-center gap-2">
+          <span class="rounded bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">운영 배포 · 실측</span>
+          <span class="material-symbols-outlined text-neutral-400 transition-transform group-open:rotate-180">expand_more</span>
+        </div>
+      </summary>
+
+      <div class="border-t border-neutral-200 px-6 pb-6 pt-5">
+        <div class="grid gap-4 text-sm leading-6 md:grid-cols-3">
+          <div class="rounded-lg border border-rose-100 bg-rose-50/70 p-4">
+            <h3 class="font-bold text-rose-700">원인</h3>
+            <p class="mt-2 text-neutral-700">기능은 정상이었지만 요청마다 로스트아크 공식 API를 순차로 3회(아이콘 1 + 재료 2) 호출했습니다. 응답시간이 재료 수에 비례해 늘고, 방문자가 늘면 스케줄러와 공유하는 API 키 호출도 그대로 늘어나는 구조였습니다.</p>
+          </div>
+          <div class="rounded-lg border border-blue-100 bg-blue-50/70 p-4">
+            <h3 class="font-bold text-blue-700">해결</h3>
+            <p class="mt-2 text-neutral-700">시세가 일별 통계라는 점에 맞춰 5분 TTL 캐시를 적용했습니다. 만료 순간 갱신을 직렬화해 외부 호출을 1회로 묶고, 일부 실패한 결과는 캐시하지 않으며, 관리자 변경 시 즉시 무효화합니다.</p>
+          </div>
+          <div class="rounded-lg border border-amber-100 bg-amber-50/70 p-4">
+            <h3 class="font-bold text-amber-800">추가 판단</h3>
+            <p class="mt-2 text-neutral-700">로컬 curl은 네트워크에 따라 흔들려서 근거로 쓰지 않았습니다. 운영 서버에 같은 조건으로 배포 전후를 각 3회 측정했고, 공식 API 호출 횟수는 Mockito 단위 테스트로 검증했습니다.</p>
+          </div>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-neutral-200">
+          <table class="w-full text-sm">
+            <thead class="bg-neutral-50 text-left text-neutral-600">
+              <tr>
+                <th class="px-4 py-3 font-bold">항목</th>
+                <th class="px-4 py-3 font-bold">개선 전</th>
+                <th class="px-4 py-3 font-bold">개선 후</th>
+                <th class="px-4 py-3 font-bold">변화</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200 text-neutral-700">
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">평균 응답속도</td>
+                <td class="px-4 py-3">207ms</td>
+                <td class="px-4 py-3">18ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-91%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">p95 응답속도</td>
+                <td class="px-4 py-3">529ms</td>
+                <td class="px-4 py-3">26ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-95%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">p99 응답속도</td>
+                <td class="px-4 py-3">819ms</td>
+                <td class="px-4 py-3">176ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-79%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">요청당 공식 API 호출</td>
+                <td class="px-4 py-3">3회</td>
+                <td class="px-4 py-3">0회 (캐시 적중)</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-100%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 text-xs leading-5 text-neutral-500">측정 조건: 운영 서버(EC2 t3.micro) 대상, JMeter 1 스레드·3초 간격·120초·3회 평균(개선 전 110건, 개선 후 117건, 에러 0). 공식 API 한도와 알림 스케줄러 영향을 피하려고 저부하로 측정했습니다. 네트워크 기준선(외부 호출 없는 엔드포인트)은 평균 18ms로, 개선 후 응답이 사실상 이 기준선에 닿았습니다. 개선 후에는 20 스레드로 60초(5,446건) 부하도 에러 없이 평균 11ms·p95 17ms로 처리했습니다(개선 전은 같은 부하를 걸면 공식 API 한도에 걸릴 수 있어 측정하지 않았습니다).</p>
+        <a class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue-700 hover:underline" href="https://github.com/s4ngg/Lojipsa/commit/51851f4" target="_blank" rel="noreferrer">
+          커밋 보기
+          <span class="material-symbols-outlined text-base">arrow_outward</span>
+        </a>
+      </div>
+    </details>
+
+    <details class="group rounded-lg border border-neutral-200 bg-white shadow-sm reveal-on-scroll">
+      <summary class="flex cursor-pointer list-none flex-col gap-3 p-6 md:flex-row md:items-start md:justify-between">
+        <div>
+          <p class="text-xs font-bold uppercase text-blue-700">Lojipsa</p>
+          <h2 class="display mt-2 text-2xl font-extrabold text-neutral-950">보석 시세 API는 데이터 성격에 맞춰 TTL을 1분으로 잡아 응답속도 92% 개선</h2>
+          <p class="mt-2 text-sm text-neutral-600">avg 436ms → 37ms · p50 369ms → 10ms · 운영 서버 JMeter 실측</p>
+        </div>
+        <div class="flex shrink-0 items-center gap-2">
+          <span class="rounded bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">운영 배포 · 실측</span>
+          <span class="material-symbols-outlined text-neutral-400 transition-transform group-open:rotate-180">expand_more</span>
+        </div>
+      </summary>
+
+      <div class="border-t border-neutral-200 px-6 pb-6 pt-5">
+        <div class="grid gap-4 text-sm leading-6 md:grid-cols-3">
+          <div class="rounded-lg border border-rose-100 bg-rose-50/70 p-4">
+            <h3 class="font-bold text-rose-700">원인</h3>
+            <p class="mt-2 text-neutral-700">재료 시세와 같은 구조로, 요청마다 공식 경매장 API를 보석 수만큼 순차 호출했습니다. 실측 평균이 436ms로 재료 시세(207ms)보다 더 무거웠습니다.</p>
+          </div>
+          <div class="rounded-lg border border-blue-100 bg-blue-50/70 p-4">
+            <h3 class="font-bold text-blue-700">해결</h3>
+            <p class="mt-2 text-neutral-700">같은 캐시 구조(갱신 직렬화, 일부 실패 시 미캐시, 관리자 변경 시 무효화)를 적용하되 TTL은 1분으로 따로 잡았습니다. 재료 시세는 일별 통계라 5분이 안전하지만, 보석은 경매장 최저가라 실시간에 가깝기 때문입니다.</p>
+          </div>
+          <div class="rounded-lg border border-amber-100 bg-amber-50/70 p-4">
+            <h3 class="font-bold text-amber-800">추가 판단</h3>
+            <p class="mt-2 text-neutral-700">p95/p99가 재료만큼 내려가지 않은 건 의도된 비용입니다. 1분마다 한 요청은 캐시를 갱신해 느려지는데(39건 중 3건이 258~629ms), 신선도를 위해 이 꼬리를 감수했습니다.</p>
+          </div>
+        </div>
+        <div class="mt-4 overflow-hidden rounded-lg border border-neutral-200">
+          <table class="w-full text-sm">
+            <thead class="bg-neutral-50 text-left text-neutral-600">
+              <tr>
+                <th class="px-4 py-3 font-bold">항목</th>
+                <th class="px-4 py-3 font-bold">개선 전</th>
+                <th class="px-4 py-3 font-bold">개선 후</th>
+                <th class="px-4 py-3 font-bold">변화</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200 text-neutral-700">
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">평균 응답속도</td>
+                <td class="px-4 py-3">436ms</td>
+                <td class="px-4 py-3">37ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-92%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">p50 응답속도</td>
+                <td class="px-4 py-3">369ms</td>
+                <td class="px-4 py-3">10ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-97%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">p95 응답속도</td>
+                <td class="px-4 py-3">914ms</td>
+                <td class="px-4 py-3">218ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-76%</td>
+              </tr>
+              <tr>
+                <td class="px-4 py-3 font-semibold text-neutral-900">p99 응답속도</td>
+                <td class="px-4 py-3">1,306ms</td>
+                <td class="px-4 py-3">445ms</td>
+                <td class="px-4 py-3 font-bold text-emerald-700">-66%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-3 text-xs leading-5 text-neutral-500">측정 조건: 운영 서버(EC2 t3.micro) 대상, JMeter 1 스레드·3초 간격·120초·3회 평균(개선 전 103건, 개선 후 117건, 에러 0). 공식 API 한도와 알림 스케줄러 영향을 피하려고 저부하로 측정했습니다. 개선 후 20 스레드로 60초(5,478건) 부하는 에러 없이 평균 10ms·p95 13ms·p99 25ms로 처리했습니다. 캐시 적중 시 공식 API 호출이 없다는 점은 Mockito 단위 테스트로 검증했습니다.</p>
+        <a class="mt-4 inline-flex items-center gap-1 text-sm font-bold text-blue-700 hover:underline" href="https://github.com/s4ngg/Lojipsa/commit/424104d" target="_blank" rel="noreferrer">
+          커밋 보기
+          <span class="material-symbols-outlined text-base">arrow_outward</span>
+        </a>
+      </div>
+    </details>
+  </section>
+</main>
+
+<footer class="bg-white border-t border-neutral-200">
+  <div class="mx-auto max-w-6xl px-5 py-8 text-sm text-neutral-500">
+      <div class="flex items-baseline justify-between gap-6">
+        <span class="font-bold text-neutral-900">김상우</span>
+        <a class="font-bold text-neutral-900" href="https://github.com/s4ngg" target="_blank" rel="noreferrer">GitHub 프로필</a>
+      </div>
+      <p class="mt-2">© 2026 백엔드 신입 개발자 포트폴리오. Java, Spring Boot, DB, 배포와 문제 해결.</p>
+  </div>
+</footer>
+<script src="assets/image-modal.js" defer></script>
+<script src="assets/scroll-effects.js" defer></script>
+</body>
+</html>
